@@ -3,7 +3,7 @@ import Link from "next/link";
 import React, { use } from "react";
 import { useRouter } from "next/navigation";
 import axios from "axios";
-import toast from "react-hot-toast";
+import toast, {Toaster} from "react-hot-toast";
 
 export default function LoginPage(){
     const router = useRouter();
@@ -19,12 +19,17 @@ export default function LoginPage(){
         setLoading(true)
         const response = await axios.post("/api/users/login", user);
         console.log("Login success", response.data);
-        toast.success("Login")
-        router.push("/profile")
+        toast.success("Login successful")
+        setTimeout(() => {
+          toast.dismiss()
+      }, 500)
+        setTimeout(() => {
+          router.push("/profile")
+      }, 1000)
 
       } catch (error:any) {
         console.log("Login failed", error.message);
-        toast.error(error.message);
+        toast.error("Error while login");
       }finally{
         setLoading(false)
       }
@@ -38,6 +43,10 @@ export default function LoginPage(){
       }
     }, [user])
     return(
+      <>
+      <div><Toaster
+            position="top-center"
+      /></div>
       <div className="flex items-center justify-center max-h-screen py-2">
         <div className="flex flex-col items-center justify-center max-h-max m-4 bg-gray-700 rounded-lg p-10">
         <h1 className="mb-5 font-thin text-3xl">{loading ?"Processing":"Login"}</h1>
@@ -68,6 +77,7 @@ export default function LoginPage(){
         <Link href="/signup">Visit Singup Page</Link>
  
         </div>
-      </div>  
+      </div> 
+      </> 
     )
 }
