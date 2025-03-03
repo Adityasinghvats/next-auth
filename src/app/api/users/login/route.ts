@@ -7,6 +7,7 @@ import jwt from "jsonwebtoken";
 connect()
 export async function POST(request: NextRequest) {
     try {
+        const tokenSecret = process.env.TOKEN_SECRET;
         const reqBody = await request.json()
         const {email, password} = reqBody;
         // console.log(reqBody);
@@ -45,9 +46,13 @@ export async function POST(request: NextRequest) {
             email: user.email
         }
         //token
-        const token = await jwt.sign(
-            tokenData, 
-            process.env.TOKEN_SECRET, 
+        if (!tokenSecret) {
+            throw new Error("TOKEN_SECRET is not defined");
+        }
+        
+        const token = jwt.sign(
+            tokenData,
+            tokenSecret,
             {expiresIn: "1d"}
         )
         const response = NextResponse.json({
