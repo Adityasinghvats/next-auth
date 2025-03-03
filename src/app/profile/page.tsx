@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 "use client";
 import axios from "axios";
 import toast, {Toaster} from "react-hot-toast";
@@ -16,7 +17,7 @@ export default function Profile(){
             //make sure toast is visible before routing
             // Add a small delay to ensure toast is visible
             await new Promise(resolve => {
-                const timer = setTimeout(() => {
+                setTimeout(() => {
                     toast.dismiss();
                     resolve(true);
                 }, 800);

@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 "use client"
 import axios from "axios";
 import Link from "next/link";
@@ -11,6 +12,7 @@ export default function VerifyEmailPage(){
     const verifyUserEmail = async() => {
         try {
             const response = await axios.post("/api/users/verifyemail", {token})
+            console.log(response.data)
             setVerified(true)
         } catch (error:any) {
             setError(true)

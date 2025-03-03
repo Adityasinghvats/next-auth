@@ -1,6 +1,7 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 "use client";
 import Link from "next/link";
-import React, { use } from "react";
+import React from "react";
 import { useRouter } from "next/navigation";
 import axios from "axios";
 import toast, {Toaster} from "react-hot-toast";
@@ -82,7 +83,7 @@ export default function LoginPage(){
         <button 
         onClick={onLogin}
         className="p-2 border border-gray-300 rounded-lg mb-4 focus:outline-none focus:border-gray-600">
-          Login here
+          {buttonDisabled ? "Enter credentials":"Login here"}
         </button>
         <Link href="/signup">Visit Singup Page</Link>
         </div>
