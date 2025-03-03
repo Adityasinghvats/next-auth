@@ -19,18 +19,20 @@ export default function LoginPage(){
         setLoading(true)
         const response = await axios.post("/api/users/login", user);
         console.log("Login success", response.data);
-        toast.success("Login successful")
-        setTimeout(() => {
-          toast.dismiss()
-      }, 500)
+        toast.success("Login successful! Redirecting to profile...", {
+          duration: 2000
+        });
+        
         setTimeout(() => {
           router.push("/profile")
-      }, 1000)
+        }, 2000);
 
       } catch (error:any) {
         console.log("Login failed", error.message);
-        toast.error("Error while login");
-      }finally{
+        toast.error(error.response?.data?.error || "Login failed", {
+          duration: 3000
+        });
+      } finally {
         setLoading(false)
       }
     }
@@ -44,9 +46,17 @@ export default function LoginPage(){
     }, [user])
     return(
       <>
-      <div><Toaster
-            position="top-center"
-      /></div>
+      <Toaster 
+        position="top-center" 
+        reverseOrder={false}
+        toastOptions={{
+          className: '',
+          style: {
+            border: '1px solid #713200',
+            padding: '16px',
+          },
+        }}
+      />
       <div className="flex items-center justify-center max-h-screen py-2">
         <div className="flex flex-col items-center justify-center max-h-max m-4 bg-gray-700 rounded-lg p-10">
         <h1 className="mb-5 font-thin text-3xl">{loading ?"Processing":"Login"}</h1>
@@ -75,7 +85,6 @@ export default function LoginPage(){
           Login here
         </button>
         <Link href="/signup">Visit Singup Page</Link>
- 
         </div>
       </div> 
       </> 

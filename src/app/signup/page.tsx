@@ -15,32 +15,27 @@ export default function LoginPage(){
     const [buttonDisabled, setButtonDisabled] = React.useState(true);
 
     const [loading, setLoading] = React.useState(false)
-
     const onSignup = async() => {
       try {
-        
         setLoading(true)
         const response = await axios.post("/api/users/signup", user);
-        console.log("Signup sucess", response.data);
-        toast.success("Signup successful")
-        setTimeout(() => {
-          toast.dismiss()
-         }, 500)
+        console.log("Signup success", response.data);
+        toast.success("Signup successful! Redirecting to login...", {
+          duration: 2000
+        });
+        
         setTimeout(() => {
           router.push("/login")
-          }, 1000)
-
+        }, 2000);
       } catch (error:any) {
-
-        console.log("Signup failed", error.message)
-        toast.error("Error while signup")
-
-      }finally{
-
+        console.log("Signup failed", error.message);
+        toast.error(error.response?.data?.error || "Error while signing up", {
+          duration: 3000
+        });
+      } finally {
         setLoading(false)
       }
     }
-
     //button state show or hide
     React.useEffect(()=>{
       if(user.email.length>0 &&user.password.length>0 && user.username.length>0){
@@ -49,9 +44,9 @@ export default function LoginPage(){
         setButtonDisabled(true)
       }
     }, [user])
-
     return(
       <>
+      <Toaster position="top-center" reverseOrder={false} />
       <div className="flex items-center justify-center min-h-screen py-2">
         <div className="flex flex-col items-center justify-center max-h-max m-4 bg-gray-700 rounded-lg p-10">
         <h1 className="mb-5 font-thin text-3xl">{loading ?"Processing": "SignUp"}</h1>

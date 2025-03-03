@@ -14,12 +14,16 @@ export default function Profile(){
             await axios.get("/api/users/logout")
             toast.success("Logout successful")
             //make sure toast is visible before routing
-            setTimeout(() => {
-                toast.dismiss()
-            }, 500)
-              setTimeout(() => {
-                router.push("/login")
-            }, 1000)
+            // Add a small delay to ensure toast is visible
+            await new Promise(resolve => {
+                const timer = setTimeout(() => {
+                    toast.dismiss();
+                    resolve(true);
+                }, 800);
+            });
+
+            // Smooth transition to login page
+            router.push("/login");
 
         } catch (error:any) {
             console.log(error.message)
@@ -42,9 +46,9 @@ export default function Profile(){
             <div><Toaster
             position="top-center"
             /></div>
-            <h1>Profile</h1>
+            <h1 className="bg-red-400 text-white m-2 p-4 rounded">Profile page</h1>
             <hr />
-            <p>Profile page</p>
+            
             <h2 className="p-3 rounded bg-green-500 ">{data === "nothing" ? "Nothing" : 
                 <Link href={`/profile/${data}`}>{data}</Link>}
             </h2>

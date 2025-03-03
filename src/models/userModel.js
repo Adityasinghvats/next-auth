@@ -28,7 +28,6 @@ const userSchema = new mongoose.Schema({
     verifyToken: String,
     verifyTokenExpiry: Date,
 })
-
 //as we using edge we need to make sure we have a model 
 // available if not create it before returning the value
 const User = mongoose.models.users || mongoose.model('users', userSchema);
