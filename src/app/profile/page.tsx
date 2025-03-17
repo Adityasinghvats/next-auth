@@ -9,6 +9,7 @@ import Link from "next/link";
 export default function Profile(){
     const router = useRouter();
     const [data, setData] = React.useState("nothing")
+    const [verified, setVerified] = React.useState(false)
 
    const logout = async () => {
         try {
@@ -37,6 +38,9 @@ export default function Profile(){
             const res = await axios.get("/api/users/me")
             console.log(res.data)
             setData(res.data.user._id)
+            if(res.data.user.isVerified === true){
+                setVerified(true)
+            }
         } catch (error:any) {
             console.log(error.message)
             toast.error("Error while getting userdetails")
@@ -44,14 +48,18 @@ export default function Profile(){
     }
     return (
         <div className="flex flex-col items-center justify-center min-h-screen py-2">
+            <div className="flex flex-col items-center justify-center max-h-max m-4 bg-gray-700 rounded-lg p-10">
             <div><Toaster
             position="top-center"
             /></div>
             <h1 className="bg-red-400 text-white m-2 p-4 rounded">Profile page</h1>
             <hr />
             
-            <h2 className="p-3 rounded bg-green-500 ">{data === "nothing" ? "Nothing" : 
-                <Link href={`/profile/${data}`}>{data}</Link>}
+            <h2 className="p-3 rounded bg-green-500 mb-2">{data === "nothing" ? "Nothing" : 
+                <Link href={`/profile/${data}`}>`Go to profile : ${data} `</Link>}
+            </h2>
+            <h2 className="p-3 rounded bg-green-500 m-2"> 
+                {verified === true ? "Verified" : "Email not verified"}
             </h2>
             <hr />
             <button
@@ -62,6 +70,7 @@ export default function Profile(){
             className="bg-blue-500 mt-4 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
             onClick={getUserDetails}
             >UserDetails</button>
+            </div>
         </div>
     )
 }

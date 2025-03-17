@@ -48,8 +48,8 @@ export default function LoginPage(){
     return(
       <>
       <Toaster position="top-center" reverseOrder={false} />
-      <div className="flex items-center justify-center min-h-screen py-2">
-        <div className="flex flex-col items-center justify-center max-h-max m-4 bg-gray-700 rounded-lg p-10">
+      <div className="flex items-center justify-center min-h-screen">
+        <div className="flex flex-col items-center justify-center max-h-max w-126 m-4 bg-gray-700 rounded-lg p-10">
         <h1 className="mb-5 font-thin text-3xl">{loading ?"Processing": "SignUp"}</h1>
         <hr />
         <label htmlFor="username" className="pb-2">username</label>
@@ -82,7 +82,7 @@ export default function LoginPage(){
         <button 
         onClick={onSignup}
         className="p-2 border border-gray-300 rounded-lg mb-4 focus:outline-none focus:border-gray-600">
-          {buttonDisabled ? "Empty field" : "Signup here"}
+          {buttonDisabled ? "Enter credentials 🤨" : "Signup here"}
         </button>
         <Link href="/login">Visit Login Page</Link>
         </div>

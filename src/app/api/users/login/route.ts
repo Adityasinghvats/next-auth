@@ -31,6 +31,13 @@ export async function POST(request: NextRequest) {
                 {status: 500}
             )
         }
+        //if verify password token is there dont allow to signin
+        if(user.forgotPasswordToken !== undefined){
+            return NextResponse.json(
+                {error: "Verify reset password first"},
+                {status: 500}
+            )
+        }
         //validate password
         const validPassword = await bcryptjs.compare(password, user.password)
         if(!validPassword){

@@ -58,7 +58,7 @@ export default function LoginPage(){
           },
         }}
       />
-      <div className="flex items-center justify-center max-h-screen py-2">
+      <div className="flex items-center justify-center max-h-screen py-12">
         <div className="flex flex-col items-center justify-center max-h-max m-4 bg-gray-700 rounded-lg p-10">
         <h1 className="mb-5 font-thin text-3xl">{loading ?"Processing":"Login"}</h1>
         <hr />
@@ -83,9 +83,11 @@ export default function LoginPage(){
         <button 
         onClick={onLogin}
         className="p-2 border border-gray-300 rounded-lg mb-4 focus:outline-none focus:border-gray-600">
-          {buttonDisabled ? "Enter credentials":"Login here"}
+          {buttonDisabled ? "Enter credentials 🤨":"Login here"}
         </button>
-        <Link href="/signup">Visit Singup Page</Link>
+        
+        <Link className="mb-2" href="/signup">Visit Singup Page</Link>
+        <Link href='/newpassword'>Forgot Password 🤔</Link>
         </div>
       </div> 
       </> 
